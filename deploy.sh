@@ -1,22 +1,41 @@
 #!/bin/bash
 
-# Deploy fwb.html to GitHub Pages
-echo "Deploying fwb.html to faw987.github.io..."
+# Deploy fwb.html (+ docs) from the fwb project to the GitHub Pages repo.
+# Live at https://faw987.github.io/fwb.html after a successful push.
 
-# Copy the file
-cp /Users/franka.wallace/Projects/fwb/fwb.html /Users/franka.wallace/Projects/faw987.github.io/fwb.html
-cp /Users/franka.wallace/Projects/fwb/FWB_user_doc.md /Users/franka.wallace/Projects/faw987.github.io/FWB_user_doc.md
-cp /Users/franka.wallace/Projects/fwb/FWB_PRD.md /Users/franka.wallace/Projects/faw987.github.io/FWB_PRD.md
+set -euo pipefail
 
+SRC="/Users/franka.wallace/Projects/fwb"
+DEST="/Users/franka.wallace/Projects/faw987.github.io"
+FILES=(fwb.html FWB_user_doc.md FWB_PRD.md)
 
-# Go to the pages repo and commit + push
-cd /Users/franka.wallace/Projects/faw987.github.io
+echo "Deploying to faw987.github.io..."
 
-git add fwb.html
-git add FWB_user_doc.md
-git add FWB_PRD.md
+# Sanity-check the app JS before shipping it.
+node -e "const fs=require('fs');const h=fs.readFileSync('$SRC/fwb.html','utf8');const m=h.match(/<script>\n\(\(\) => \{([\s\S]*)\}\)\(\);\n<\/script>/);new Function('(()=>{'+m[1]+'})()');" \
+  && echo "  JS sanity check: OK" \
+  || { echo "  JS sanity check FAILED - aborting deploy"; exit 1; }
 
-git commit -m "deploy: update fwb.html, FWB_user_doc.md and FWB_PRD.md from fwb project"
+# Show which version is being deployed.
+VERSION=$(grep -o 'class="badge version">V[0-9.]*' "$SRC/fwb.html" | grep -o 'V[0-9.]*' || echo "unknown")
+echo "  Deploying version: $VERSION"
+
+# Copy the files.
+for f in "${FILES[@]}"; do
+  cp "$SRC/$f" "$DEST/$f"
+done
+
+cd "$DEST"
+git add "${FILES[@]}"
+
+# Nothing changed? Don't make an empty commit.
+if git diff --cached --quiet; then
+  echo "No changes to deploy - $VERSION already live."
+  exit 0
+fi
+
+git commit -m "deploy: update fwb.html, FWB_user_doc.md and FWB_PRD.md from fwb project ($VERSION)"
 git push
 
-echo "Done! Live at https://faw987.github.io/fwb.html"
+echo "Done! $VERSION deployed as $(git rev-parse --short HEAD)"
+echo "Live at https://faw987.github.io/fwb.html (allow ~1 min for GitHub Pages)"
