@@ -166,10 +166,138 @@
     content: attr(data-placeholder);
     color: #c7c7cc;
   }
-  td.col-llm-response {
+  td.col-llm-response,
+  td.col-prompt-result {
     min-width: 240px;
     max-width: 320px;
     padding: 6px 8px;
+  }
+  th.col-select, td.col-select {
+    width: 36px; text-align: center;
+    padding-left: 8px; padding-right: 4px;
+  }
+  th.col-select input[type="checkbox"],
+  td.col-select input[type="checkbox"] { cursor: pointer; margin: 0; }
+  th.col-prompt {
+    min-width: 200px; max-width: 280px;
+    text-transform: none; letter-spacing: 0;
+  }
+  th.col-prompt .col-prompt-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 600; font-size: 12px;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  th.col-prompt .col-prompt-label input[type="checkbox"] {
+    margin: 0; cursor: pointer;
+  }
+  th.col-prompt .col-prompt-label .prompt-name-text {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    max-width: 220px;
+  }
+  tr.row-selected td { background: #f0f7ff; }
+  .apply-btn { background: #16a34a; }
+  .apply-btn:hover:not(:disabled) { background: #128a3d; }
+  /* Section headings for each table */
+  h2.section-heading {
+    font-size: 16px; font-weight: 600; margin: 24px 0 10px;
+    color: var(--text); display: flex; align-items: baseline; gap: 10px;
+  }
+  h2.section-heading .heading-meta {
+    font-size: 12px; color: var(--muted); font-weight: 400;
+  }
+  /* AGG summary table */
+  td.col-agg-name {
+    font-weight: 500; font-size: 14px; cursor: pointer; color: var(--accent);
+    max-width: 200px; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  td.col-agg-name:hover { text-decoration: underline; }
+  tr.aggregation-active td { background: #e8f3ff; }
+  tr.aggregation-active td.col-agg-name { font-weight: 600; }
+  td.col-agg-pages { font-variant-numeric: tabular-nums; width: 80px;
+                     color: var(--muted); text-align: right; }
+  td.col-agg-delete { width: 40px; text-align: center; padding: 4px; }
+  td.col-agg-delete button {
+    background: transparent; color: #b00020; border: 0;
+    font-size: 18px; line-height: 1; padding: 4px 8px;
+    border-radius: 6px; cursor: pointer; font-weight: 500;
+  }
+  td.col-agg-delete button:hover { background: #fdf0f0; }
+  td.col-agg-notes [contenteditable] {
+    display: block; min-height: 40px; padding: 4px 6px;
+    border: 1px solid transparent; border-radius: 4px; outline: none;
+    font-size: 13px; white-space: pre-wrap;
+  }
+  td.col-agg-notes [contenteditable]:hover { border-color: var(--border); }
+  td.col-agg-notes [contenteditable]:focus { border-color: var(--accent); background: #fff; }
+  td.col-agg-notes [contenteditable]:empty::before {
+    content: attr(data-placeholder); color: #c7c7cc;
+  }
+  td.col-agg-readonly {
+    min-width: 200px; max-width: 320px; padding: 6px 8px;
+    font-size: 13px; color: var(--muted); white-space: pre-wrap;
+    max-height: 160px; overflow-y: auto;
+  }
+  td.col-agg-readonly:empty::before {
+    content: '—'; color: #d2d2d7;
+  }
+  .agg-detail-controls {
+    display: flex; gap: 8px; margin: 0 0 10px;
+  }
+  th.col-drag, td.col-drag {
+    width: 24px; text-align: center; padding: 4px;
+    color: var(--muted); user-select: none;
+  }
+  td.col-drag { cursor: grab; font-size: 16px; line-height: 1; }
+  td.col-drag:active { cursor: grabbing; }
+  tr.dragging td { opacity: 0.5; background: #f0f7ff; }
+  tr.drop-target-above td { border-top: 2px solid var(--accent); }
+  tr.drop-target-below td { border-bottom: 2px solid var(--accent); }
+  /* Aggregation modal */
+  #agg-modal {
+    display: none; position: fixed; inset: 0; z-index: 2100;
+    background: rgba(0,0,0,0.45);
+    align-items: center; justify-content: center; padding: 40px;
+  }
+  #agg-modal.open { display: flex; }
+  #agg-modal-content {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; max-width: 480px; width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    display: flex; flex-direction: column;
+  }
+  #agg-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px; border-bottom: 1px solid var(--border);
+  }
+  #agg-modal-header h3 { margin: 0; font-size: 16px; font-weight: 600; }
+  #agg-modal-header button {
+    background: transparent; color: var(--muted); font-size: 22px;
+    padding: 0 10px; line-height: 1; border-radius: 6px;
+    border: 0; cursor: pointer;
+  }
+  #agg-modal-header button:hover { background: #f0f0f0; color: var(--text); }
+  #agg-modal-body { padding: 18px 22px; color: var(--text); font-size: 14px; }
+  #agg-modal-body .hint { color: var(--muted); margin: 0 0 14px; }
+  #agg-modal-body .group { margin: 10px 0; }
+  #agg-modal-body label.choice {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 0; cursor: pointer;
+  }
+  #agg-modal-body input[type="text"] {
+    width: 100%; padding: 8px 10px; border-radius: 6px;
+    border: 1px solid var(--border); font: inherit; outline: none;
+    margin-top: 6px; box-sizing: border-box;
+  }
+  #agg-modal-body input[type="text"]:focus { border-color: var(--accent); }
+  #agg-modal-body .existing-list {
+    max-height: 200px; overflow-y: auto; margin: 6px 0;
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px;
+  }
+  #agg-modal-body .existing-list:empty { display: none; }
+  #agg-modal-footer {
+    display: flex; justify-content: flex-end; gap: 8px;
+    padding: 12px 22px; border-top: 1px solid var(--border);
   }
   .llm-response-content {
     font-size: 13px;
@@ -221,11 +349,23 @@
   #settings-toggle:hover { background: #f0f0f0; }
   #settings-toggle .bar {
     width: 20px; height: 2px; background: var(--text); border-radius: 1px;
-    transition: transform 0.25s, opacity 0.25s;
+    transition: transform 0.25s, opacity 0.25s, background-color 0.2s;
   }
+  #settings-toggle.open {
+    border-color: var(--accent);
+    background: #fff;
+    animation: settings-open-nudge 0.9s ease-out;
+  }
+  #settings-toggle.open:hover { background: #f5faff; }
+  #settings-toggle.open .bar { background: var(--accent); }
   #settings-toggle.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   #settings-toggle.open .bar:nth-child(2) { opacity: 0; }
   #settings-toggle.open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @keyframes settings-open-nudge {
+    0%   { box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.55); transform: scale(1); }
+    50%  { box-shadow: 0 0 0 10px rgba(0, 102, 204, 0); transform: scale(1.08); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 102, 204, 0); transform: scale(1); }
+  }
   #settings-panel {
     display: none; position: fixed; top: 64px; right: 16px; z-index: 999;
     width: 380px; padding: 20px; border-radius: 12px;
@@ -353,6 +493,31 @@
   <button class="settings-save-btn demo-btn" id="load-demo-btn" style="width: 100%; margin: 0 0 6px;">Load Demo Data</button>
   <p class="hint" style="margin: 0 0 14px;">Fetches a sample prompt library and a test PDF from GitHub.</p>
 
+  <h3>Project</h3>
+  <p class="hint" style="margin: 0 0 8px;">
+    Save or open a complete analysis: PDFs, notes, LLM responses, aggregations, and the prompt library.
+  </p>
+  <div class="project-mode-row" style="display: flex; flex-direction: column; gap: 4px;
+       font-size: 12px; color: var(--text); margin: 0 0 8px;">
+    <span style="color: var(--muted); font-size: 11px;
+          text-transform: uppercase; letter-spacing: 0.4px;">Save mode</span>
+    <label style="display: flex; gap: 6px; align-items: center; cursor: pointer;">
+      <input type="radio" name="projectMode" value="bundled" checked>
+      Bundled &mdash; PDFs embedded in the file (larger, self-contained)
+    </label>
+    <label style="display: flex; gap: 6px; align-items: center; cursor: pointer;">
+      <input type="radio" name="projectMode" value="referenced">
+      Referenced &mdash; re-attach PDFs on open (smaller file)
+    </label>
+  </div>
+  <div class="library-row">
+    <button class="settings-save-btn" id="project-save-btn">Save Project</button>
+    <button class="settings-save-btn" id="project-open-btn">Open Project</button>
+  </div>
+  <input type="file" id="project-open-file" accept="application/json,.json" hidden>
+  <input type="file" id="project-attach-file" accept="application/pdf,.pdf" multiple hidden>
+
+  <hr class="section-divider">
   <h3>AI Gateway Settings</h3>
   <label for="settings-endpoint">Gateway Endpoint</label>
   <input id="settings-endpoint" type="text" placeholder="e.g. http://localhost:8080/chat">
@@ -378,6 +543,7 @@
 
   <hr class="section-divider">
   <h3>Documentation</h3>
+  <button class="settings-save-btn" id="open-prd-btn" style="margin-top: 6px;">Product Requirements</button>
   <button class="settings-save-btn" id="open-guide-btn" style="margin-top: 6px;">User Guide</button>
 </div>
 
@@ -397,7 +563,7 @@
 <header>
   <h1>Forensic Workbench Dashboard</h1>
   <span class="badge">FWB</span>
-  <span class="badge version">V0.2</span>
+  <span class="badge version">V0.7</span>
 </header>
 
 <main>
@@ -409,30 +575,77 @@
 
   <div class="controls">
     <button id="createSummaryBtn" disabled>Create Summary Table</button>
+    <button id="applyBtn" class="apply-btn" disabled title="Select at least one row and one prompt column">Apply</button>
+    <button id="createAggBtn" disabled title="Select at least one row to create or add to an aggregation">Create / Add Aggregation</button>
     <button id="clearBtn" class="secondary" disabled>Clear</button>
     <div class="file-list" id="fileList"></div>
   </div>
 
   <div class="status" id="status"></div>
 
+  <h2 class="section-heading" id="pageSummaryHeading" hidden>Page Summary</h2>
   <table id="summaryTable" hidden>
-    <thead>
-      <tr>
-        <th>File</th>
-        <th>Page</th>
-        <th>Thumbnail</th>
-        <th>Notes</th>
-        <th>LLM Response</th>
-      </tr>
-    </thead>
+    <thead></thead>
     <tbody></tbody>
   </table>
   <div class="empty-state" id="emptyState">No PDFs loaded yet. Drop files above to get started.</div>
+
+  <h2 class="section-heading" id="aggSummaryHeading" hidden>
+    Aggregations
+    <span class="heading-meta" id="aggSummaryMeta"></span>
+  </h2>
+  <table id="aggSummaryTable" hidden>
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <h2 class="section-heading" id="aggDetailHeading" hidden>
+    Aggregation Detail
+    <span class="heading-meta" id="aggDetailMeta"></span>
+  </h2>
+  <div class="agg-detail-controls" id="aggDetailControls" hidden>
+    <button id="aggApplyBtn" class="apply-btn" disabled
+      title="Select at least one row and one prompt column">Apply</button>
+    <button id="aggSavePdfBtn" disabled
+      title="Save the aggregation pages as a single PDF in current order">Save as PDF</button>
+  </div>
+  <table id="aggDetailTable" hidden>
+    <thead></thead>
+    <tbody></tbody>
+  </table>
 </main>
+
+<div id="agg-modal" role="dialog" aria-modal="true" aria-labelledby="agg-modal-title">
+  <div id="agg-modal-content">
+    <div id="agg-modal-header">
+      <h3 id="agg-modal-title">Create / Add to Aggregation</h3>
+      <button id="agg-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div id="agg-modal-body">
+      <p class="hint" id="agg-modal-selection-hint">0 pages selected.</p>
+      <div class="group" id="agg-modal-existing-group">
+        <div style="font-weight: 500; margin-bottom: 4px;">Add to existing</div>
+        <div class="existing-list" id="agg-modal-existing-list"></div>
+      </div>
+      <div class="group">
+        <label class="choice">
+          <input type="radio" name="aggTarget" value="__new__" checked>
+          <span>New aggregation</span>
+        </label>
+        <input type="text" id="agg-modal-new-name" placeholder="Aggregation name">
+      </div>
+    </div>
+    <div id="agg-modal-footer">
+      <button class="secondary" id="agg-modal-cancel">Cancel</button>
+      <button id="agg-modal-submit">Save</button>
+    </div>
+  </div>
+</div>
 
 <footer>FWB &middot; PDFs are processed locally in your browser</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script>
 (() => {
   const PDFJS_VERSION = '3.11.174';
@@ -456,29 +669,102 @@
     debug: false
   };
 
-  // Prompt library — array of { id, name, text }. In-memory only;
-  // persistence is via the Import / Export buttons on the hamburger menu.
+  // Prompt library — array of
+  // { id, name, text, manual, summaryColumn, aggregationColumn, provider, model }.
+  // `manual`: prompt is offered in the viewer's detail page menu.
+  // `summaryColumn`: prompt gets a dedicated column in the page summary table.
+  // `aggregationColumn`: prompt gets a dedicated column in the aggregation detail table.
+  // `provider` / `model`: preferred LLM for this prompt when applied.
+  // In-memory only; persistence is via the Import / Export buttons.
   let promptLibrary = [];
+  // Provider -> selectable models. A provider with an empty list has no model
+  // available yet; applying such a prompt is an error until one is added.
+  const PROVIDER_MODELS = {
+    openai: ['gpt-5.4-nano', 'gpt-5.4-mini'],
+    anthropic: [],
+    gemini: []
+  };
   function makeId() {
     if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
     return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+  }
+  // Resolve a raw {provider, model} pair to a valid one. Unknown providers
+  // fall back to openai; an openai prompt with no / invalid model gets the
+  // default. Non-openai providers have no model available, so model is ''.
+  function normalizeProviderModel(p) {
+    const provider = PROVIDER_MODELS.hasOwnProperty(p && p.provider)
+      ? p.provider : 'openai';
+    const models = PROVIDER_MODELS[provider];
+    let model = '';
+    if (models.length) {
+      model = models.includes(p && p.model) ? p.model : models[0];
+    }
+    return { provider, model };
+  }
+  // Normalize a raw prompt object from JSON / postMessage into the canonical
+  // shape. Missing `manual` defaults to true so pre-V0.3 libraries keep
+  // appearing in the viewer; missing column flags default to false; missing
+  // provider/model default to openai + the default apply model.
+  function normalizePrompt(p) {
+    const pm = normalizeProviderModel(p);
+    return {
+      id: typeof p.id === 'string' && p.id ? p.id : makeId(),
+      name: String(p.name || ''),
+      text: String(p.text || ''),
+      manual: p.manual === undefined ? true : !!p.manual,
+      summaryColumn: !!p.summaryColumn,
+      aggregationColumn: !!p.aggregationColumn,
+      provider: pm.provider,
+      model: pm.model
+    };
   }
 
   // --- DOM refs ---
   const dropzone     = document.getElementById('dropzone');
   const fileInput    = document.getElementById('fileInput');
   const createBtn    = document.getElementById('createSummaryBtn');
+  const applyBtn     = document.getElementById('applyBtn');
+  const createAggBtn = document.getElementById('createAggBtn');
   const clearBtn     = document.getElementById('clearBtn');
   const fileListEl   = document.getElementById('fileList');
   const statusEl     = document.getElementById('status');
+  const pageHeading  = document.getElementById('pageSummaryHeading');
   const table        = document.getElementById('summaryTable');
+  const thead        = table.querySelector('thead');
   const tbody        = table.querySelector('tbody');
   const emptyState   = document.getElementById('emptyState');
+  const aggHeading       = document.getElementById('aggSummaryHeading');
+  const aggMeta          = document.getElementById('aggSummaryMeta');
+  const aggTable         = document.getElementById('aggSummaryTable');
+  const aggThead         = aggTable.querySelector('thead');
+  const aggTbody         = aggTable.querySelector('tbody');
+  const aggDetailHeading  = document.getElementById('aggDetailHeading');
+  const aggDetailMeta     = document.getElementById('aggDetailMeta');
+  const aggDetailControls = document.getElementById('aggDetailControls');
+  const aggApplyBtn       = document.getElementById('aggApplyBtn');
+  const aggSavePdfBtn     = document.getElementById('aggSavePdfBtn');
+  const aggDetailTable    = document.getElementById('aggDetailTable');
+  const aggDetailThead    = aggDetailTable.querySelector('thead');
+  const aggDetailTbody    = aggDetailTable.querySelector('tbody');
 
   // --- State ---
   let files = [];        // [{file: File, pdfDoc: PDFDocumentProxy, id: number}]
   let nextId = 1;
   let busy = false;
+  // Snapshot of the summary-column prompts at the time the table was built.
+  // The table's columns are stable until Create Summary Table runs again.
+  let currentSummaryPrompts = [];
+  // Same idea for the aggregation-detail table: snapshot the aggregation-
+  // column prompts at Create Summary Table time so the agg detail columns
+  // stay stable until the table is rebuilt.
+  let currentAggregationPrompts = [];
+  // Aggregations: named groups of page refs. Shape:
+  // { id, name, pageRefs: [{fileId, pageNum}], notes, promptResults }.
+  // `promptResults` is populated by the agg-detail Apply and keyed by
+  // `${fileId}:${pageNum}:${promptId}` → { status, text }.
+  let aggregations = [];
+  let nextAggId = 1;
+  let selectedAggregationId = null;
 
   // --- Settings panel ---
   const settingsToggle    = document.getElementById('settings-toggle');
@@ -488,17 +774,33 @@
 
   settingsEndpointEl.value = llmSettings.endpoint;
 
+  // Single source of truth for the hamburger panel's open state.
+  // Keeps the X-icon class, the panel class, and the tooltip in sync — so
+  // hovering the icon while the menu is open reveals "Close menu" rather
+  // than the original "Settings".
+  function setSettingsOpen(open) {
+    // Toggling animation: removing then re-adding `.open` retriggers the
+    // CSS nudge keyframes even if it was already in `.open` state.
+    if (open) {
+      settingsToggle.classList.remove('open');
+      // Reflow to ensure the animation restarts cleanly on rapid re-open.
+      void settingsToggle.offsetWidth;
+    }
+    settingsToggle.classList.toggle('open', open);
+    settingsPanel.classList.toggle('open', open);
+    settingsToggle.title = open ? 'Close menu' : 'Settings';
+    settingsToggle.setAttribute('aria-label', open ? 'Close menu' : 'Settings');
+  }
+
   settingsToggle.addEventListener('click', () => {
-    settingsToggle.classList.toggle('open');
-    settingsPanel.classList.toggle('open');
+    setSettingsOpen(!settingsToggle.classList.contains('open'));
   });
 
   settingsSaveBtn.addEventListener('click', () => {
     const entered = settingsEndpointEl.value.trim();
     llmSettings.endpoint = entered || DEFAULT_LLM_ENDPOINT;
     settingsEndpointEl.value = llmSettings.endpoint;
-    settingsToggle.classList.remove('open');
-    settingsPanel.classList.remove('open');
+    setSettingsOpen(false);
     pushLlmSettingsToViewer();
     setStatus(entered
       ? 'Gateway endpoint saved.'
@@ -569,9 +871,17 @@
 
   libraryExportBtn.addEventListener('click', () => {
     const payload = {
-      version: 1,
+      version: 2,
       exportedAt: new Date().toISOString(),
-      prompts: promptLibrary.map(p => ({ name: p.name, text: p.text }))
+      prompts: promptLibrary.map(p => ({
+        name: p.name,
+        text: p.text,
+        manual: p.manual,
+        summaryColumn: p.summaryColumn,
+        aggregationColumn: p.aggregationColumn,
+        provider: p.provider,
+        model: p.model
+      }))
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -601,7 +911,7 @@
       if (!raw) throw new Error('Expected an array or an object with a "prompts" array.');
       promptLibrary = raw
         .filter(p => p && typeof p.name === 'string' && typeof p.text === 'string')
-        .map(p => ({ id: makeId(), name: p.name, text: p.text }));
+        .map(normalizePrompt);
       onLibraryChanged();
       setStatus('Imported ' + promptLibrary.length + ' prompt'
         + (promptLibrary.length === 1 ? '' : 's') + ' from ' + file.name + '.');
@@ -610,6 +920,333 @@
       setStatus('Import failed: ' + (err && err.message ? err.message : err));
     }
   });
+
+  // --- Project save / open ---
+  const projectSaveBtn   = document.getElementById('project-save-btn');
+  const projectOpenBtn   = document.getElementById('project-open-btn');
+  const projectOpenFile  = document.getElementById('project-open-file');
+  const projectAttachFile = document.getElementById('project-attach-file');
+
+  projectSaveBtn.addEventListener('click', saveProject);
+  projectOpenBtn.addEventListener('click', () => projectOpenFile.click());
+  projectOpenFile.addEventListener('change', async e => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    try {
+      await openProjectFromFile(file);
+    } catch (err) {
+      console.error('Open project failed', err);
+      setStatus('Open project failed: ' + (err && err.message ? err.message : err));
+    }
+  });
+
+  function getSelectedProjectMode() {
+    const checked = document.querySelector('input[name="projectMode"]:checked');
+    return checked ? checked.value : 'bundled';
+  }
+
+  async function sha256Hex(arrayBuffer) {
+    if (!(crypto && crypto.subtle)) return '';
+    const hash = await crypto.subtle.digest('SHA-256', arrayBuffer);
+    return Array.from(new Uint8Array(hash))
+      .map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => {
+        const s = String(r.result || '');
+        const i = s.indexOf(',');
+        resolve(i >= 0 ? s.slice(i + 1) : s);
+      };
+      r.onerror = () => reject(r.error || new Error('FileReader failed'));
+      r.readAsDataURL(blob);
+    });
+  }
+
+  function base64ToFile(b64, name) {
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new File([bytes], name, { type: 'application/pdf' });
+  }
+
+  // Snapshot one row's per-prompt, notes, and llm-response text from the DOM.
+  function extractPageRowData(fileId, pageNum) {
+    const tr = tbody.querySelector(
+      `tr[data-file-id="${fileId}"][data-page-num="${pageNum}"]`);
+    if (!tr) {
+      return { fileId, pageNum, notes: '', llmResponse: '', promptResults: {} };
+    }
+    const notesEl = tr.querySelector('.col-notes [contenteditable]');
+    const llmEl = tr.querySelector('.col-llm-response .llm-response-content');
+    const promptResults = {};
+    tr.querySelectorAll('.col-prompt-result').forEach(td => {
+      const promptId = td.dataset.promptId;
+      const div = td.querySelector('.llm-response-content');
+      const text = div ? (div.textContent || '') : '';
+      if (promptId && text) promptResults[promptId] = text;
+    });
+    return {
+      fileId, pageNum,
+      notes: notesEl ? (notesEl.textContent || '') : '',
+      llmResponse: llmEl ? (llmEl.textContent || '') : '',
+      promptResults
+    };
+  }
+
+  function populatePageRowData(page) {
+    const tr = tbody.querySelector(
+      `tr[data-file-id="${page.fileId}"][data-page-num="${page.pageNum}"]`);
+    if (!tr) return;
+    const notesEl = tr.querySelector('.col-notes [contenteditable]');
+    if (notesEl) notesEl.textContent = page.notes || '';
+    const llmEl = tr.querySelector('.col-llm-response .llm-response-content');
+    if (llmEl) llmEl.textContent = page.llmResponse || '';
+    for (const [promptId, text] of Object.entries(page.promptResults || {})) {
+      const td = tr.querySelector(`.col-prompt-result[data-prompt-id="${promptId}"]`);
+      if (!td) continue;
+      const div = td.querySelector('.llm-response-content');
+      if (div) div.textContent = text;
+    }
+  }
+
+  async function saveProject() {
+    if (busy) return;
+    const mode = getSelectedProjectMode();
+    if (!files.length && !promptLibrary.length) {
+      setStatus('Nothing to save: no PDFs loaded and no prompts in library.');
+      return;
+    }
+    busy = true;
+    updateButtons();
+    setStatus(mode === 'bundled'
+      ? 'Saving project (bundling PDFs)…'
+      : 'Saving project (referenced)…');
+
+    try {
+      const fileEntries = [];
+      for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+        setStatus(`Saving project: file ${i + 1} / ${files.length} (${f.file.name})`);
+        const buf = await f.file.arrayBuffer();
+        const sha = await sha256Hex(buf);
+        const entry = {
+          id: f.id,
+          name: f.file.name,
+          size: f.file.size,
+          sha256: sha
+        };
+        if (mode === 'bundled') {
+          entry.data = await blobToBase64(new Blob([buf]));
+        }
+        fileEntries.push(entry);
+      }
+
+      const pages = [];
+      if (!table.hidden) {
+        for (const f of files) {
+          for (let pageNum = 1; pageNum <= f.pdfDoc.numPages; pageNum++) {
+            const data = extractPageRowData(f.id, pageNum);
+            if (data.notes || data.llmResponse || Object.keys(data.promptResults).length) {
+              pages.push(data);
+            }
+          }
+        }
+      }
+
+      const aggs = aggregations.map(a => ({
+        id: a.id,
+        name: a.name,
+        notes: a.notes || '',
+        pageRefs: a.pageRefs.map(r => ({ fileId: r.fileId, pageNum: r.pageNum })),
+        promptResults: a.promptResults || {}
+      }));
+
+      const project = {
+        kind: 'fwb-project',
+        version: 1,
+        appVersion: '0.6',
+        exportedAt: new Date().toISOString(),
+        mode,
+        nextId,
+        promptLibrary: promptLibrary.map(p => ({ ...p })),
+        currentSummaryPrompts: currentSummaryPrompts.map(p => ({ ...p })),
+        currentAggregationPrompts: currentAggregationPrompts.map(p => ({ ...p })),
+        summaryTableBuilt: !table.hidden,
+        files: fileEntries,
+        pages,
+        aggregations: aggs,
+        selectedAggregationId
+      };
+
+      const defaultName = (mode === 'bundled' ? 'fwb-project-bundled' : 'fwb-project')
+        + '-' + new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19) + '.json';
+      const entered = window.prompt('Save project as:', defaultName);
+      if (!entered) {
+        setStatus('Save cancelled.');
+        return;
+      }
+      const filename = entered.toLowerCase().endsWith('.json') ? entered : entered + '.json';
+
+      const blob = new Blob([JSON.stringify(project)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+
+      const sizeKb = Math.round(blob.size / 1024);
+      setSettingsOpen(false);
+      setStatus('Project saved (' + mode + ', ' + sizeKb + ' KB) to ' + filename + '.');
+    } catch (err) {
+      console.error('Save project failed', err);
+      setStatus('Save failed: ' + (err && err.message ? err.message : err));
+    } finally {
+      busy = false;
+      updateButtons();
+    }
+  }
+
+  // Wait for the next change event on the attach-file input, resolving to
+  // an array of File objects. Allows opening referenced projects which
+  // require the user to pick the source PDFs.
+  function awaitAttachedFiles() {
+    return new Promise(resolve => {
+      const handler = e => {
+        projectAttachFile.removeEventListener('change', handler);
+        const picked = Array.from(e.target.files || []);
+        e.target.value = '';
+        resolve(picked);
+      };
+      projectAttachFile.addEventListener('change', handler);
+      projectAttachFile.click();
+    });
+  }
+
+  async function resolveProjectFiles(project) {
+    const needsAttach = project.files.filter(f => !f.data);
+    if (!needsAttach.length) return new Map(); // bundled — no attach needed
+    setStatus('Project needs these PDFs re-attached: '
+      + needsAttach.map(f => f.name).join(', '));
+    const picked = await awaitAttachedFiles();
+    if (!picked.length) throw new Error('No files selected.');
+    const byName = new Map();
+    for (const f of picked) byName.set(f.name, f);
+    const missing = needsAttach.filter(f => !byName.has(f.name)).map(f => f.name);
+    if (missing.length) {
+      throw new Error('Missing PDFs: ' + missing.join(', '));
+    }
+    return byName;
+  }
+
+  async function openProjectFromFile(file) {
+    if (busy) return;
+    setStatus('Reading project file…');
+    const text = await file.text();
+    let project;
+    try {
+      project = JSON.parse(text);
+    } catch (e) {
+      throw new Error('Not a valid JSON file.');
+    }
+    if (!project || project.kind !== 'fwb-project') {
+      throw new Error('Not an FWB project file.');
+    }
+    if (!Array.isArray(project.files)) project.files = [];
+    if (!Array.isArray(project.pages)) project.pages = [];
+    if (!Array.isArray(project.aggregations)) project.aggregations = [];
+
+    // Re-attach phase happens BEFORE we wipe current state, so a cancelled
+    // open doesn't destroy the user's in-progress work.
+    const attached = await resolveProjectFiles(project);
+
+    busy = true;
+    updateButtons();
+    setStatus('Restoring project…');
+    try {
+      // Reset all state to match the Clear button.
+      files = [];
+      tbody.innerHTML = '';
+      thead.innerHTML = '';
+      currentSummaryPrompts = [];
+      currentAggregationPrompts = [];
+      aggregations = [];
+      selectedAggregationId = null;
+      pageHeading.hidden = true;
+      table.hidden = true;
+      emptyState.hidden = false;
+      fileListEl.textContent = '';
+
+      // Restore prompt library so column construction sees the right prompts.
+      promptLibrary = Array.isArray(project.promptLibrary)
+        ? project.promptLibrary
+            .filter(p => p && typeof p.name === 'string' && typeof p.text === 'string')
+            .map(normalizePrompt)
+        : [];
+      onLibraryChanged();
+
+      // Restore files, preserving original ids so saved pageRefs still resolve.
+      let maxId = 0;
+      for (const sf of project.files) {
+        let restored;
+        if (sf.data) {
+          restored = base64ToFile(sf.data, sf.name);
+        } else {
+          restored = attached.get(sf.name);
+          if (!restored) throw new Error('Internal: missing attached file ' + sf.name);
+        }
+        const buffer = await restored.arrayBuffer();
+        const pdfDoc = await pdfjsLib.getDocument({ data: buffer.slice(0) }).promise;
+        files.push({ file: restored, pdfDoc, id: sf.id });
+        if (sf.id > maxId) maxId = sf.id;
+      }
+      nextId = Math.max(maxId + 1, project.nextId || 1);
+      renderFileList();
+
+      // Restore aggregations BEFORE rebuilding the summary table so the agg
+      // re-renders can see them as soon as buildSummaryTable's tail runs.
+      aggregations = project.aggregations.map(a => ({
+        id: a.id,
+        name: a.name || '',
+        notes: a.notes || '',
+        pageRefs: Array.isArray(a.pageRefs)
+          ? a.pageRefs.map(r => ({ fileId: r.fileId, pageNum: r.pageNum }))
+          : [],
+        promptResults: a.promptResults || {}
+      }));
+      selectedAggregationId = project.selectedAggregationId || null;
+
+      // Build the summary table only if the project had one. buildSummaryTable
+      // snapshots `currentSummaryPrompts` / `currentAggregationPrompts` from
+      // `promptLibrary`, so the saved snapshots match by construction.
+      // Release busy briefly: buildSummaryTable owns its own busy lifecycle
+      // and will short-circuit if busy is already true.
+      if (project.summaryTableBuilt && files.length) {
+        busy = false;
+        await buildSummaryTable();
+        busy = true;
+        for (const page of project.pages) populatePageRowData(page);
+      }
+
+      renderAggSummary();
+      renderAggDetail();
+
+      setSettingsOpen(false);
+      setStatus('Project loaded: ' + files.length + ' PDF'
+        + (files.length === 1 ? '' : 's') + ', ' + promptLibrary.length + ' prompt'
+        + (promptLibrary.length === 1 ? '' : 's') + ', ' + aggregations.length + ' aggregation'
+        + (aggregations.length === 1 ? '' : 's') + '.');
+    } finally {
+      busy = false;
+      updateButtons();
+    }
+  }
 
   // --- Load Demo Data button ---
   const loadDemoBtn = document.getElementById('load-demo-btn');
@@ -634,15 +1271,14 @@
       if (!raw) throw new Error('Library JSON has unexpected shape.');
       promptLibrary = raw
         .filter(p => p && typeof p.name === 'string' && typeof p.text === 'string')
-        .map(p => ({ id: makeId(), name: p.name, text: p.text }));
+        .map(normalizePrompt);
       onLibraryChanged();
 
       const pdfBlob = await pdfResp.blob();
       const pdfFile = new File([pdfBlob], DEMO_PDF_FILE, { type: 'application/pdf' });
       await addFiles([pdfFile]);
 
-      settingsToggle.classList.remove('open');
-      settingsPanel.classList.remove('open');
+      setSettingsOpen(false);
       setStatus('Demo data loaded: ' + promptLibrary.length + ' prompt'
         + (promptLibrary.length === 1 ? '' : 's') + ' and ' + DEMO_PDF_FILE + '.');
     } catch (err) {
@@ -661,6 +1297,7 @@
   const docViewToggle  = document.getElementById('doc-view-toggle');
   const docModalClose  = document.getElementById('doc-modal-close');
   const openGuideBtn   = document.getElementById('open-guide-btn');
+  const openPrdBtn     = document.getElementById('open-prd-btn');
   let docRawSource = '';
   let docViewMode = 'rendered'; // 'rendered' | 'raw'
 
@@ -708,9 +1345,12 @@
     }
   }
 
+  openPrdBtn.addEventListener('click', () => {
+    setSettingsOpen(false);
+    openDoc('FWB_PRD.md', 'FWB Product Requirements');
+  });
   openGuideBtn.addEventListener('click', () => {
-    settingsToggle.classList.remove('open');
-    settingsPanel.classList.remove('open');
+    setSettingsOpen(false);
     openDoc('FWB_user_doc.md', 'FWB User Guide');
   });
   docViewToggle.addEventListener('click', () => {
@@ -764,11 +1404,7 @@
       } else if (e.data.type === 'promptLibrary' && Array.isArray(e.data.promptLibrary)) {
         promptLibrary = e.data.promptLibrary
           .filter(p => p && typeof p.name === 'string' && typeof p.text === 'string')
-          .map(p => ({
-            id: typeof p.id === 'string' && p.id ? p.id : makeId(),
-            name: p.name,
-            text: p.text
-          }));
+          .map(normalizePrompt);
         updateLibraryCountHint();
         pushLibraryToViewer();
       }
@@ -847,17 +1483,71 @@
   function updateButtons() {
     createBtn.disabled = busy || files.length === 0;
     clearBtn.disabled  = busy || files.length === 0;
+    updateApplyButton();
+    updateAggButton();
+    updateAggApplyButton();
+    updateAggSavePdfButton();
+  }
+
+  function updateAggButton() {
+    if (busy || table.hidden) {
+      createAggBtn.disabled = true;
+      createAggBtn.title = busy ? 'Working…' : 'Build the summary table first';
+      return;
+    }
+    const rowsSelected = !!tbody.querySelector('.row-select:checked');
+    if (rowsSelected) {
+      createAggBtn.disabled = false;
+      createAggBtn.title = 'Create a new aggregation or add selected pages to an existing one';
+    } else {
+      createAggBtn.disabled = true;
+      createAggBtn.title = 'Select at least one row to create or add to an aggregation';
+    }
+  }
+
+  // Apply is enabled when the table is built, we're not busy, and the user
+  // has checked at least one row AND at least one summary-column header.
+  function updateApplyButton() {
+    if (busy || table.hidden || currentSummaryPrompts.length === 0) {
+      applyBtn.disabled = true;
+      applyBtn.title = busy
+        ? 'Working…'
+        : (table.hidden
+          ? 'Build the summary table first'
+          : 'No prompts are marked as Summary table heading');
+      return;
+    }
+    const rowsSelected = !!tbody.querySelector('.row-select:checked');
+    const colsSelected = !!thead.querySelector('.col-select-prompt:checked');
+    if (rowsSelected && colsSelected) {
+      applyBtn.disabled = false;
+      applyBtn.title = 'Run selected prompts on selected rows';
+    } else {
+      applyBtn.disabled = true;
+      applyBtn.title = 'Select at least one row and one prompt column';
+    }
   }
 
   function setStatus(msg) { statusEl.textContent = msg; }
 
   // --- Build summary table ---
-  createBtn.addEventListener('click', async () => {
+  createBtn.addEventListener('click', buildSummaryTable);
+  async function buildSummaryTable() {
     if (files.length === 0 || busy) return;
     busy = true;
+    // Snapshot summary-column prompts now; library edits after this point
+    // won't change the table's columns until Create Summary Table runs again.
+    currentSummaryPrompts = promptLibrary
+      .filter(p => p.summaryColumn)
+      .map(p => ({ ...p }));
+    currentAggregationPrompts = promptLibrary
+      .filter(p => p.aggregationColumn)
+      .map(p => ({ ...p }));
     updateButtons();
+    buildTableHeader();
     tbody.innerHTML = '';
     emptyState.hidden = true;
+    pageHeading.hidden = false;
     table.hidden = false;
 
     const totalPages = files.reduce((s, f) => s + f.pdfDoc.numPages, 0);
@@ -872,6 +1562,20 @@
         const tr = document.createElement('tr');
         tr.dataset.fileId = String(entry.id);
         tr.dataset.pageNum = String(pageNum);
+
+        const tdSelect = document.createElement('td');
+        tdSelect.className = 'col-select';
+        const rowCb = document.createElement('input');
+        rowCb.type = 'checkbox';
+        rowCb.className = 'row-select';
+        rowCb.title = 'Select this row';
+        rowCb.addEventListener('change', () => {
+          tr.classList.toggle('row-selected', rowCb.checked);
+          updateApplyButton();
+          updateAggButton();
+        });
+        tdSelect.appendChild(rowCb);
+        tr.appendChild(tdSelect);
 
         const tdFile = document.createElement('td');
         tdFile.className = 'col-file';
@@ -903,6 +1607,17 @@
         tdLlm.appendChild(llmDiv);
         tr.appendChild(tdLlm);
 
+        for (const prompt of currentSummaryPrompts) {
+          const tdPrompt = document.createElement('td');
+          tdPrompt.className = 'col-prompt-result';
+          tdPrompt.dataset.promptId = prompt.id;
+          const div = document.createElement('div');
+          div.className = 'llm-response-content';
+          div.title = 'Double-click to view full response';
+          tdPrompt.appendChild(div);
+          tr.appendChild(tdPrompt);
+        }
+
         tbody.appendChild(tr);
 
         try {
@@ -923,6 +1638,80 @@
     setStatus(`Summary table built: ${totalPages} page${totalPages === 1 ? '' : 's'} across ${files.length} file${files.length === 1 ? '' : 's'}.`);
     busy = false;
     updateButtons();
+    // The page-table rebuild may have changed which summary-column prompts
+    // exist. Refresh the AGG tables so their headers and detail cells (which
+    // pull live data) match the new state.
+    renderAggSummary();
+    renderAggDetail();
+  }
+
+  function buildTableHeader() {
+    thead.innerHTML = '';
+    const tr = document.createElement('tr');
+
+    const thSelect = document.createElement('th');
+    thSelect.className = 'col-select';
+    const selectAllCb = document.createElement('input');
+    selectAllCb.type = 'checkbox';
+    selectAllCb.id = 'row-select-all';
+    selectAllCb.title = 'Select / deselect all rows';
+    selectAllCb.addEventListener('change', () => {
+      tbody.querySelectorAll('.row-select').forEach(cb => {
+        cb.checked = selectAllCb.checked;
+        cb.closest('tr').classList.toggle('row-selected', cb.checked);
+      });
+      updateApplyButton();
+    });
+    thSelect.appendChild(selectAllCb);
+    tr.appendChild(thSelect);
+
+    for (const label of ['File', 'Page', 'Thumbnail', 'Notes', 'LLM Response']) {
+      const th = document.createElement('th');
+      th.textContent = label;
+      tr.appendChild(th);
+    }
+
+    for (const prompt of currentSummaryPrompts) {
+      const th = document.createElement('th');
+      th.className = 'col-prompt';
+      th.dataset.promptId = prompt.id;
+      const lbl = document.createElement('label');
+      lbl.className = 'col-prompt-label';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.className = 'col-select-prompt';
+      cb.dataset.promptId = prompt.id;
+      cb.title = 'Include this prompt column in Apply';
+      const span = document.createElement('span');
+      span.className = 'prompt-name-text';
+      span.textContent = prompt.name;
+      span.title = prompt.name + '\n\n' + prompt.text;
+      lbl.appendChild(cb);
+      lbl.appendChild(span);
+      th.appendChild(lbl);
+      tr.appendChild(th);
+    }
+
+    thead.appendChild(tr);
+  }
+
+  // Re-evaluate Apply enable-state whenever any selection checkbox changes.
+  // Row checkboxes also toggle a visual "selected" class on the <tr>.
+  table.addEventListener('change', e => {
+    const t = e.target;
+    if (!(t instanceof HTMLInputElement) || t.type !== 'checkbox') return;
+    if (t.classList.contains('row-select')) {
+      t.closest('tr').classList.toggle('row-selected', t.checked);
+      const all = tbody.querySelectorAll('.row-select');
+      const checked = tbody.querySelectorAll('.row-select:checked');
+      const selectAllCb = thead.querySelector('#row-select-all');
+      if (selectAllCb) {
+        selectAllCb.checked = all.length > 0 && checked.length === all.length;
+        selectAllCb.indeterminate = checked.length > 0 && checked.length < all.length;
+      }
+    }
+    updateApplyButton();
+    updateAggButton();
   });
 
   async function renderThumbnail(pdfDoc, pageNum) {
@@ -948,12 +1737,900 @@
     if (busy) return;
     files = [];
     tbody.innerHTML = '';
+    thead.innerHTML = '';
+    currentSummaryPrompts = [];
+    currentAggregationPrompts = [];
+    aggregations = [];
+    selectedAggregationId = null;
+    pageHeading.hidden = true;
     table.hidden = true;
     emptyState.hidden = false;
     fileListEl.textContent = '';
+    renderAggSummary();
+    renderAggDetail();
     setStatus('');
     updateButtons();
   });
+
+  // --- Apply: run selected prompts on selected rows ---
+  applyBtn.addEventListener('click', runApplyMatrix);
+
+  async function runApplyMatrix() {
+    if (busy) return;
+    const selectedRows = Array.from(tbody.querySelectorAll('tr'))
+      .filter(tr => tr.querySelector('.row-select:checked'))
+      .map(tr => ({
+        fileId: Number(tr.dataset.fileId),
+        pageNum: Number(tr.dataset.pageNum),
+        tr: tr
+      }));
+    const selectedPromptIds = Array.from(
+      thead.querySelectorAll('.col-select-prompt:checked')
+    ).map(cb => cb.dataset.promptId);
+    const selectedPrompts = currentSummaryPrompts.filter(
+      p => selectedPromptIds.includes(p.id)
+    );
+    if (!selectedRows.length || !selectedPrompts.length) return;
+
+    const endpoint = (llmSettings.endpoint || '').trim();
+    if (!endpoint) {
+      setStatus('No gateway endpoint configured. Open the hamburger menu and save one.');
+      return;
+    }
+
+    busy = true;
+    updateButtons();
+
+    const total = selectedRows.length * selectedPrompts.length;
+    let done = 0;
+
+    for (const row of selectedRows) {
+      const entry = files.find(f => f.id === row.fileId);
+      if (!entry) {
+        for (const prompt of selectedPrompts) {
+          setPromptCell(row.tr, prompt.id, 'error', 'File no longer loaded.');
+          done++;
+        }
+        continue;
+      }
+      let dataUrl = null;
+      let renderErr = null;
+      try {
+        dataUrl = await renderPageToDataUrl(entry.pdfDoc, row.pageNum);
+      } catch (err) {
+        renderErr = err;
+      }
+      for (const prompt of selectedPrompts) {
+        done++;
+        if (renderErr) {
+          setPromptCell(row.tr, prompt.id, 'error',
+            'Render error: ' + (renderErr.message || renderErr));
+          setStatus(`Apply: ${done}/${total}`);
+          continue;
+        }
+        setStatus(
+          `Apply: ${done}/${total} — ${entry.file.name} p.${row.pageNum} · ${prompt.name}`
+        );
+        setPromptCell(row.tr, prompt.id, 'pending', 'Querying LLM...');
+        try {
+          const text = await callGateway(endpoint, dataUrl, prompt);
+          setPromptCell(row.tr, prompt.id, 'success', text);
+        } catch (err) {
+          setPromptCell(row.tr, prompt.id, 'error',
+            'Error: ' + (err && err.message ? err.message : err));
+        }
+      }
+    }
+
+    busy = false;
+    updateButtons();
+    setStatus(`Apply complete: ${total} cell${total === 1 ? '' : 's'} processed.`);
+  }
+
+  // --- Apply: aggregation detail variant ---
+  // Runs the agg detail's selected prompts on its selected rows and stores
+  // results on the aggregation itself (so they survive renders and aren't
+  // tied to the page-summary table cells).
+  async function runAggApplyMatrix() {
+    if (busy) return;
+    const agg = aggregations.find(a => a.id === selectedAggregationId);
+    if (!agg) return;
+    if (!agg.promptResults) agg.promptResults = {};
+
+    const selectedRows = Array.from(aggDetailTbody.querySelectorAll('tr'))
+      .filter(tr => tr.querySelector('.row-select:checked'))
+      .map(tr => ({
+        fileId: Number(tr.dataset.fileId),
+        pageNum: Number(tr.dataset.pageNum),
+        tr: tr
+      }));
+    const selectedPromptIds = Array.from(
+      aggDetailThead.querySelectorAll('.col-select-prompt:checked')
+    ).map(cb => cb.dataset.promptId);
+    const selectedPrompts = currentAggregationPrompts.filter(
+      p => selectedPromptIds.includes(p.id)
+    );
+    if (!selectedRows.length || !selectedPrompts.length) return;
+
+    const endpoint = (llmSettings.endpoint || '').trim();
+    if (!endpoint) {
+      setStatus('No gateway endpoint configured. Open the hamburger menu and save one.');
+      return;
+    }
+
+    busy = true;
+    updateButtons();
+    updateAggApplyButton();
+    updateAggSavePdfButton();
+
+    const total = selectedRows.length * selectedPrompts.length;
+    let done = 0;
+
+    for (const row of selectedRows) {
+      const entry = files.find(f => f.id === row.fileId);
+      if (!entry) {
+        for (const prompt of selectedPrompts) {
+          setAggPromptCell(agg, row, prompt.id, 'error', 'File no longer loaded.');
+          done++;
+        }
+        continue;
+      }
+      let dataUrl = null;
+      let renderErr = null;
+      try {
+        dataUrl = await renderPageToDataUrl(entry.pdfDoc, row.pageNum);
+      } catch (err) {
+        renderErr = err;
+      }
+      for (const prompt of selectedPrompts) {
+        done++;
+        if (renderErr) {
+          setAggPromptCell(agg, row, prompt.id, 'error',
+            'Render error: ' + (renderErr.message || renderErr));
+          setStatus(`Apply (agg): ${done}/${total}`);
+          continue;
+        }
+        setStatus(
+          `Apply (agg): ${done}/${total} — ${entry.file.name} p.${row.pageNum} · ${prompt.name}`
+        );
+        setAggPromptCell(agg, row, prompt.id, 'pending', 'Querying LLM...');
+        try {
+          const text = await callGateway(endpoint, dataUrl, prompt);
+          setAggPromptCell(agg, row, prompt.id, 'success', text);
+        } catch (err) {
+          setAggPromptCell(agg, row, prompt.id, 'error',
+            'Error: ' + (err && err.message ? err.message : err));
+        }
+      }
+    }
+
+    busy = false;
+    updateButtons();
+    updateAggApplyButton();
+    updateAggSavePdfButton();
+    setStatus(`Apply complete: ${total} cell${total === 1 ? '' : 's'} processed.`);
+  }
+
+  function setAggPromptCell(agg, row, promptId, status, text) {
+    const key = aggResultKey(row.fileId, row.pageNum, promptId);
+    agg.promptResults[key] = { status, text };
+    const td = row.tr.querySelector(
+      `td.col-agg-readonly[data-prompt-id="${promptId}"]`
+    );
+    if (!td) return;
+    const div = td.querySelector('.llm-response-content');
+    if (!div) return;
+    div.classList.remove('pending', 'error');
+    if (status === 'pending') div.classList.add('pending');
+    if (status === 'error') div.classList.add('error');
+    div.textContent = text || '';
+  }
+
+  // --- Save aggregation pages as a single PDF ---
+  async function saveAggAsPdf() {
+    if (busy) return;
+    const agg = aggregations.find(a => a.id === selectedAggregationId);
+    if (!agg || !agg.pageRefs.length) return;
+    if (typeof PDFLib === 'undefined') {
+      setStatus('PDF library not loaded yet. Try again in a moment.');
+      return;
+    }
+
+    const safeBase = (agg.name || 'aggregation').replace(/[^a-z0-9\-_ .]/gi, '_');
+    const suggested = safeBase.endsWith('.pdf') ? safeBase : safeBase + '.pdf';
+    const entered = window.prompt('Save PDF as:', suggested);
+    if (!entered) return;
+    const filename = entered.toLowerCase().endsWith('.pdf') ? entered : entered + '.pdf';
+
+    busy = true;
+    updateButtons();
+    updateAggApplyButton();
+    updateAggSavePdfButton();
+
+    const sourceDocCache = new Map(); // fileId → PDFLib.PDFDocument
+    try {
+      const newDoc = await PDFLib.PDFDocument.create();
+      for (let i = 0; i < agg.pageRefs.length; i++) {
+        const ref = agg.pageRefs[i];
+        setStatus(`Building PDF: page ${i + 1} / ${agg.pageRefs.length}`);
+        const entry = files.find(f => f.id === ref.fileId);
+        if (!entry) {
+          setStatus('Warning: source file no longer loaded for one page; skipping.');
+          continue;
+        }
+        if (!sourceDocCache.has(entry.id)) {
+          const bytes = await entry.file.arrayBuffer();
+          sourceDocCache.set(entry.id, await PDFLib.PDFDocument.load(bytes));
+        }
+        const sourceDoc = sourceDocCache.get(entry.id);
+        const [copied] = await newDoc.copyPages(sourceDoc, [ref.pageNum - 1]);
+        newDoc.addPage(copied);
+      }
+      const pdfBytes = await newDoc.save();
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+      setStatus('Saved ' + agg.pageRefs.length + ' page'
+        + (agg.pageRefs.length === 1 ? '' : 's') + ' to ' + filename + '.');
+    } catch (err) {
+      console.error('PDF save failed', err);
+      setStatus('PDF save failed: ' + (err && err.message ? err.message : err));
+    } finally {
+      busy = false;
+      updateButtons();
+      updateAggApplyButton();
+      updateAggSavePdfButton();
+    }
+  }
+
+  aggApplyBtn.addEventListener('click', runAggApplyMatrix);
+  aggSavePdfBtn.addEventListener('click', saveAggAsPdf);
+
+  function setPromptCell(tr, promptId, status, text) {
+    const td = tr.querySelector(`td.col-prompt-result[data-prompt-id="${promptId}"]`);
+    if (!td) return;
+    const div = td.querySelector('.llm-response-content');
+    if (!div) return;
+    div.classList.remove('pending', 'error');
+    if (status === 'pending') {
+      div.classList.add('pending');
+      div.textContent = text || 'Querying LLM...';
+      return;
+    }
+    if (status === 'error') {
+      div.classList.add('error');
+    }
+    div.textContent = text || '';
+  }
+
+  // Render a PDF page to a PNG data URL at a resolution suitable for the LLM.
+  async function renderPageToDataUrl(pdfDoc, pageNum) {
+    const page = await pdfDoc.getPage(pageNum);
+    const targetWidth = 1024;
+    const baseViewport = page.getViewport({ scale: 1 });
+    const scale = targetWidth / baseViewport.width;
+    const viewport = page.getViewport({ scale });
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.ceil(viewport.width);
+    canvas.height = Math.ceil(viewport.height);
+    const ctx = canvas.getContext('2d');
+    await page.render({ canvasContext: ctx, viewport }).promise;
+    return canvas.toDataURL('image/png');
+  }
+
+  async function callGateway(endpoint, dataUrl, prompt) {
+    const pm = normalizeProviderModel(prompt || {});
+    if (!pm.model) {
+      throw new Error('No model available for provider "' + pm.provider
+        + '". Set this prompt to OpenAI in the library editor.');
+    }
+    if (llmSettings.debug) {
+      console.log('[FWB Debug] Apply gateway call',
+        { endpoint, provider: pm.provider, model: pm.model });
+    }
+    const promptText = prompt && prompt.text;
+    const resp = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        provider: pm.provider,
+        model: pm.model,
+        input: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: promptText || 'Describe what is shown on this page.' },
+              { type: 'image', image_url: dataUrl, detail: 'high' }
+            ]
+          }
+        ]
+      })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok) {
+      const err = data && data.error ? data.error : ('HTTP ' + resp.status);
+      throw new Error(err);
+    }
+    return (data && typeof data.response === 'string') ? data.response : '';
+  }
+
+  // --- Aggregations ---
+  const aggModal           = document.getElementById('agg-modal');
+  const aggModalClose      = document.getElementById('agg-modal-close');
+  const aggModalCancel     = document.getElementById('agg-modal-cancel');
+  const aggModalSubmit     = document.getElementById('agg-modal-submit');
+  const aggModalHint       = document.getElementById('agg-modal-selection-hint');
+  const aggModalExisting   = document.getElementById('agg-modal-existing-list');
+  const aggModalExistingGp = document.getElementById('agg-modal-existing-group');
+  const aggModalNewName    = document.getElementById('agg-modal-new-name');
+
+  function makeAggId() { return 'agg-' + (nextAggId++); }
+
+  // Snapshot of page refs picked from the page-summary table when the user
+  // clicked Create / Add Aggregation. Held across the modal interaction.
+  let pendingAggRefs = [];
+
+  createAggBtn.addEventListener('click', () => {
+    if (createAggBtn.disabled) return;
+    const refs = [];
+    tbody.querySelectorAll('tr').forEach(tr => {
+      const cb = tr.querySelector('.row-select');
+      if (cb && cb.checked) {
+        refs.push({
+          fileId: Number(tr.dataset.fileId),
+          pageNum: Number(tr.dataset.pageNum)
+        });
+      }
+    });
+    if (!refs.length) return;
+    pendingAggRefs = refs;
+    openAggModal();
+  });
+
+  function openAggModal() {
+    aggModalHint.textContent = pendingAggRefs.length + ' page'
+      + (pendingAggRefs.length === 1 ? '' : 's') + ' selected.';
+    aggModalExisting.innerHTML = '';
+    if (aggregations.length === 0) {
+      aggModalExistingGp.style.display = 'none';
+    } else {
+      aggModalExistingGp.style.display = '';
+      for (const agg of aggregations) {
+        const label = document.createElement('label');
+        label.className = 'choice';
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'aggTarget';
+        radio.value = agg.id;
+        radio.addEventListener('change', syncNewNameEnabled);
+        const span = document.createElement('span');
+        span.textContent = agg.name + ' (' + agg.pageRefs.length + ' page'
+          + (agg.pageRefs.length === 1 ? '' : 's') + ')';
+        label.appendChild(radio);
+        label.appendChild(span);
+        aggModalExisting.appendChild(label);
+      }
+    }
+    const newRadio = aggModal.querySelector('input[value="__new__"]');
+    newRadio.checked = true;
+    aggModalNewName.value = '';
+    syncNewNameEnabled();
+    aggModal.classList.add('open');
+    setTimeout(() => aggModalNewName.focus(), 0);
+  }
+  // Static "New aggregation" radio is in the markup once; attach its
+  // change listener at init time so we don't accumulate listeners on
+  // every modal open.
+  aggModal.querySelector('input[value="__new__"]')
+    .addEventListener('change', syncNewNameEnabled);
+  // Focusing the name field implies the user wants to create a new
+  // aggregation; flip the radio so submit picks the right branch.
+  aggModalNewName.addEventListener('focus', () => {
+    const newRadio = aggModal.querySelector('input[value="__new__"]');
+    if (newRadio && !newRadio.checked) {
+      newRadio.checked = true;
+      syncNewNameEnabled();
+    }
+  });
+
+  function syncNewNameEnabled() {
+    const chosen = aggModal.querySelector('input[name="aggTarget"]:checked');
+    const isNew = chosen && chosen.value === '__new__';
+    aggModalNewName.disabled = !isNew;
+    aggModalNewName.style.opacity = isNew ? '1' : '0.4';
+  }
+
+  function closeAggModal() { aggModal.classList.remove('open'); }
+  aggModalClose.addEventListener('click', closeAggModal);
+  aggModalCancel.addEventListener('click', closeAggModal);
+  aggModal.addEventListener('click', e => {
+    if (e.target === aggModal) closeAggModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && aggModal.classList.contains('open')) closeAggModal();
+  });
+
+  aggModalSubmit.addEventListener('click', () => {
+    const chosen = aggModal.querySelector('input[name="aggTarget"]:checked');
+    if (!chosen) return;
+    if (chosen.value === '__new__') {
+      const name = (aggModalNewName.value || '').trim();
+      if (!name) { aggModalNewName.focus(); return; }
+      const agg = {
+        id: makeAggId(),
+        name: name,
+        pageRefs: dedupeRefs(pendingAggRefs),
+        notes: '',
+        promptResults: {}
+      };
+      aggregations.push(agg);
+      selectedAggregationId = agg.id;
+      setStatus('Aggregation "' + name + '" created with '
+        + agg.pageRefs.length + ' page'
+        + (agg.pageRefs.length === 1 ? '' : 's') + '.');
+    } else {
+      const agg = aggregations.find(a => a.id === chosen.value);
+      if (!agg) return;
+      const before = agg.pageRefs.length;
+      agg.pageRefs = dedupeRefs(agg.pageRefs.concat(pendingAggRefs));
+      const added = agg.pageRefs.length - before;
+      selectedAggregationId = agg.id;
+      setStatus('Added ' + added + ' page' + (added === 1 ? '' : 's')
+        + ' to "' + agg.name + '".');
+    }
+    closeAggModal();
+    renderAggSummary();
+    renderAggDetail();
+  });
+
+  function dedupeRefs(refs) {
+    const seen = new Set();
+    const out = [];
+    for (const r of refs) {
+      const key = r.fileId + ':' + r.pageNum;
+      if (!seen.has(key)) {
+        seen.add(key);
+        out.push({ fileId: r.fileId, pageNum: r.pageNum });
+      }
+    }
+    return out;
+  }
+
+  function renderAggSummary() {
+    if (!aggregations.length) {
+      aggHeading.hidden = true;
+      aggTable.hidden = true;
+      aggMeta.textContent = '';
+      aggThead.innerHTML = '';
+      aggTbody.innerHTML = '';
+      return;
+    }
+    aggHeading.hidden = false;
+    aggTable.hidden = false;
+    aggMeta.textContent = aggregations.length + ' aggregation'
+      + (aggregations.length === 1 ? '' : 's');
+
+    aggThead.innerHTML = '';
+    const headTr = document.createElement('tr');
+    for (const label of ['Name', 'Pages', 'Thumbnail', 'Notes', 'LLM Response']) {
+      const th = document.createElement('th');
+      th.textContent = label;
+      headTr.appendChild(th);
+    }
+    for (const prompt of currentSummaryPrompts) {
+      const th = document.createElement('th');
+      th.className = 'col-prompt';
+      const span = document.createElement('span');
+      span.className = 'prompt-name-text';
+      span.textContent = prompt.name;
+      span.title = prompt.name + '\n\n' + prompt.text;
+      th.appendChild(span);
+      headTr.appendChild(th);
+    }
+    headTr.appendChild(document.createElement('th'));
+    aggThead.appendChild(headTr);
+
+    aggTbody.innerHTML = '';
+    for (const agg of aggregations) {
+      const tr = document.createElement('tr');
+      tr.dataset.aggId = agg.id;
+      if (agg.id === selectedAggregationId) tr.classList.add('aggregation-active');
+
+      const tdName = document.createElement('td');
+      tdName.className = 'col-agg-name';
+      tdName.textContent = agg.name;
+      tdName.title = 'Click to view pages in this aggregation';
+      tdName.addEventListener('click', () => {
+        selectedAggregationId = agg.id;
+        renderAggSummary();
+        renderAggDetail();
+      });
+      tr.appendChild(tdName);
+
+      const tdPages = document.createElement('td');
+      tdPages.className = 'col-agg-pages';
+      tdPages.textContent = agg.pageRefs.length + (agg.pageRefs.length === 1 ? ' page' : ' pages');
+      tr.appendChild(tdPages);
+
+      const tdThumb = document.createElement('td');
+      tdThumb.className = 'col-thumb';
+      const firstRef = agg.pageRefs[0];
+      if (firstRef) {
+        const cloned = cloneThumbnailFromPageTable(firstRef);
+        if (cloned) {
+          cloned.title = 'Open first page in viewer';
+          cloned.addEventListener('click', () => {
+            const entry = files.find(f => f.id === firstRef.fileId);
+            if (entry) openInViewer(entry, firstRef.pageNum);
+          });
+          tdThumb.appendChild(cloned);
+        }
+      }
+      tr.appendChild(tdThumb);
+
+      const tdNotes = document.createElement('td');
+      tdNotes.className = 'col-agg-notes';
+      const notesDiv = document.createElement('div');
+      notesDiv.contentEditable = 'true';
+      notesDiv.dataset.placeholder = 'Aggregation notes...';
+      notesDiv.textContent = agg.notes || '';
+      notesDiv.addEventListener('input', () => { agg.notes = notesDiv.textContent; });
+      tdNotes.appendChild(notesDiv);
+      tr.appendChild(tdNotes);
+
+      const tdLlm = document.createElement('td');
+      tdLlm.className = 'col-agg-readonly';
+      tr.appendChild(tdLlm);
+
+      for (const prompt of currentSummaryPrompts) {
+        const tdPrompt = document.createElement('td');
+        tdPrompt.className = 'col-agg-readonly';
+        tdPrompt.dataset.promptId = prompt.id;
+        tr.appendChild(tdPrompt);
+      }
+
+      const tdDelete = document.createElement('td');
+      tdDelete.className = 'col-agg-delete';
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '✕';
+      delBtn.title = 'Delete this aggregation';
+      delBtn.addEventListener('click', () => deleteAggregation(agg.id));
+      tdDelete.appendChild(delBtn);
+      tr.appendChild(tdDelete);
+
+      aggTbody.appendChild(tr);
+    }
+  }
+
+  function deleteAggregation(id) {
+    const agg = aggregations.find(a => a.id === id);
+    if (!agg) return;
+    if (!confirm('Delete aggregation "' + agg.name + '"? This does not affect the underlying pages.')) {
+      return;
+    }
+    aggregations = aggregations.filter(a => a.id !== id);
+    if (selectedAggregationId === id) selectedAggregationId = null;
+    renderAggSummary();
+    renderAggDetail();
+  }
+
+  function cloneThumbnailFromPageTable(ref) {
+    const tr = tbody.querySelector(
+      `tr[data-file-id="${ref.fileId}"][data-page-num="${ref.pageNum}"]`
+    );
+    if (!tr) return null;
+    const src = tr.querySelector('.col-thumb canvas');
+    if (!src) return null;
+    const dst = document.createElement('canvas');
+    dst.width = src.width;
+    dst.height = src.height;
+    dst.style.width = src.style.width;
+    dst.style.height = src.style.height;
+    dst.style.cursor = 'zoom-in';
+    dst.getContext('2d').drawImage(src, 0, 0);
+    return dst;
+  }
+
+  function readCellText(tr, selector) {
+    const el = tr && tr.querySelector(selector);
+    return el ? (el.textContent || '') : '';
+  }
+
+  // Per-row drag state for the aggregation-detail reorder feature.
+  // Module-scoped so dragover/drop handlers can read which row is being moved.
+  let aggDragRow = null;
+
+  function renderAggDetail() {
+    if (!selectedAggregationId) {
+      aggDetailHeading.hidden = true;
+      aggDetailControls.hidden = true;
+      aggDetailTable.hidden = true;
+      aggDetailMeta.textContent = '';
+      aggDetailThead.innerHTML = '';
+      aggDetailTbody.innerHTML = '';
+      updateAggApplyButton();
+      updateAggSavePdfButton();
+      return;
+    }
+    const agg = aggregations.find(a => a.id === selectedAggregationId);
+    if (!agg) {
+      selectedAggregationId = null;
+      renderAggDetail();
+      return;
+    }
+    if (!agg.promptResults) agg.promptResults = {};
+    aggDetailHeading.hidden = false;
+    aggDetailControls.hidden = false;
+    aggDetailTable.hidden = false;
+    aggDetailHeading.firstChild.nodeValue = 'Aggregation Detail — ' + agg.name + ' ';
+    aggDetailMeta.textContent = agg.pageRefs.length + ' page'
+      + (agg.pageRefs.length === 1 ? '' : 's');
+
+    aggDetailThead.innerHTML = '';
+    const headTr = document.createElement('tr');
+
+    const thDrag = document.createElement('th');
+    thDrag.className = 'col-drag';
+    headTr.appendChild(thDrag);
+
+    const thSelect = document.createElement('th');
+    thSelect.className = 'col-select';
+    const selectAllCb = document.createElement('input');
+    selectAllCb.type = 'checkbox';
+    selectAllCb.className = 'agg-detail-select-all';
+    selectAllCb.title = 'Select / deselect all rows';
+    selectAllCb.addEventListener('change', () => {
+      aggDetailTbody.querySelectorAll('.row-select').forEach(cb => {
+        cb.checked = selectAllCb.checked;
+        cb.closest('tr').classList.toggle('row-selected', cb.checked);
+      });
+      updateAggApplyButton();
+    });
+    thSelect.appendChild(selectAllCb);
+    headTr.appendChild(thSelect);
+
+    const emptyTh = document.createElement('th');
+    emptyTh.style.width = '40px';
+    headTr.appendChild(emptyTh);
+    for (const label of ['File', 'Page', 'Thumbnail', 'Notes', 'LLM Response']) {
+      const th = document.createElement('th');
+      th.textContent = label;
+      headTr.appendChild(th);
+    }
+    for (const prompt of currentAggregationPrompts) {
+      const th = document.createElement('th');
+      th.className = 'col-prompt';
+      th.dataset.promptId = prompt.id;
+      const lbl = document.createElement('label');
+      lbl.className = 'col-prompt-label';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.className = 'col-select-prompt';
+      cb.dataset.promptId = prompt.id;
+      cb.title = 'Include this prompt column in Apply';
+      cb.addEventListener('change', updateAggApplyButton);
+      const span = document.createElement('span');
+      span.className = 'prompt-name-text';
+      span.textContent = prompt.name;
+      span.title = prompt.name + '\n\n' + prompt.text;
+      lbl.appendChild(cb);
+      lbl.appendChild(span);
+      th.appendChild(lbl);
+      headTr.appendChild(th);
+    }
+    aggDetailThead.appendChild(headTr);
+
+    aggDetailTbody.innerHTML = '';
+    for (const ref of agg.pageRefs) {
+      const tr = document.createElement('tr');
+      tr.dataset.fileId = String(ref.fileId);
+      tr.dataset.pageNum = String(ref.pageNum);
+      const entry = files.find(f => f.id === ref.fileId);
+      const sourceTr = tbody.querySelector(
+        `tr[data-file-id="${ref.fileId}"][data-page-num="${ref.pageNum}"]`
+      );
+
+      const tdDrag = document.createElement('td');
+      tdDrag.className = 'col-drag';
+      tdDrag.textContent = '☰';
+      tdDrag.title = 'Drag to reorder';
+      // Only enable drag when the user grabs the handle, so text selection
+      // inside other cells doesn't accidentally start a row drag.
+      tdDrag.addEventListener('mousedown', () => { tr.draggable = true; });
+      tdDrag.addEventListener('mouseup', () => { tr.draggable = false; });
+      tr.appendChild(tdDrag);
+
+      tr.addEventListener('dragstart', e => {
+        aggDragRow = tr;
+        tr.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        // Firefox requires data on dataTransfer to start a drag.
+        try { e.dataTransfer.setData('text/plain', ref.fileId + ':' + ref.pageNum); }
+        catch (_) {}
+      });
+      tr.addEventListener('dragend', () => {
+        tr.classList.remove('dragging');
+        tr.draggable = false;
+        aggDragRow = null;
+        aggDetailTbody.querySelectorAll('tr').forEach(r => {
+          r.classList.remove('drop-target-above', 'drop-target-below');
+        });
+        syncAggPageRefsFromDom(agg);
+      });
+      tr.addEventListener('dragover', e => {
+        if (!aggDragRow || aggDragRow === tr) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const rect = tr.getBoundingClientRect();
+        const after = e.clientY > rect.top + rect.height / 2;
+        tr.classList.toggle('drop-target-above', !after);
+        tr.classList.toggle('drop-target-below', after);
+      });
+      tr.addEventListener('dragleave', () => {
+        tr.classList.remove('drop-target-above', 'drop-target-below');
+      });
+      tr.addEventListener('drop', e => {
+        if (!aggDragRow || aggDragRow === tr) return;
+        e.preventDefault();
+        const rect = tr.getBoundingClientRect();
+        const after = e.clientY > rect.top + rect.height / 2;
+        if (after) tr.parentNode.insertBefore(aggDragRow, tr.nextSibling);
+        else tr.parentNode.insertBefore(aggDragRow, tr);
+        tr.classList.remove('drop-target-above', 'drop-target-below');
+      });
+
+      const tdSelect = document.createElement('td');
+      tdSelect.className = 'col-select';
+      const rowCb = document.createElement('input');
+      rowCb.type = 'checkbox';
+      rowCb.className = 'row-select';
+      rowCb.title = 'Select this row';
+      rowCb.addEventListener('change', () => {
+        tr.classList.toggle('row-selected', rowCb.checked);
+        updateAggApplyButton();
+      });
+      tdSelect.appendChild(rowCb);
+      tr.appendChild(tdSelect);
+
+      const tdDel = document.createElement('td');
+      tdDel.className = 'col-agg-delete';
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '✕';
+      delBtn.title = 'Remove this page from the aggregation';
+      delBtn.addEventListener('click', () => removePageFromAggregation(agg.id, ref));
+      tdDel.appendChild(delBtn);
+      tr.appendChild(tdDel);
+
+      const tdFile = document.createElement('td');
+      tdFile.className = 'col-file';
+      tdFile.textContent = entry ? entry.file.name : '(missing)';
+      tr.appendChild(tdFile);
+
+      const tdPage = document.createElement('td');
+      tdPage.className = 'col-page';
+      tdPage.textContent = String(ref.pageNum);
+      tr.appendChild(tdPage);
+
+      const tdThumb = document.createElement('td');
+      tdThumb.className = 'col-thumb';
+      const cloned = cloneThumbnailFromPageTable(ref);
+      if (cloned && entry) {
+        cloned.title = 'Open ' + entry.file.name + ' — Page ' + ref.pageNum;
+        cloned.addEventListener('click', () => openInViewer(entry, ref.pageNum));
+        tdThumb.appendChild(cloned);
+      }
+      tr.appendChild(tdThumb);
+
+      const tdNotes = document.createElement('td');
+      tdNotes.className = 'col-agg-readonly';
+      tdNotes.textContent = readCellText(sourceTr, '.col-notes [contenteditable]');
+      tr.appendChild(tdNotes);
+
+      const tdLlm = document.createElement('td');
+      tdLlm.className = 'col-agg-readonly';
+      tdLlm.textContent = readCellText(sourceTr, '.col-llm-response .llm-response-content');
+      tr.appendChild(tdLlm);
+
+      for (const prompt of currentAggregationPrompts) {
+        const tdPrompt = document.createElement('td');
+        tdPrompt.className = 'col-agg-readonly';
+        tdPrompt.dataset.promptId = prompt.id;
+        const div = document.createElement('div');
+        div.className = 'llm-response-content';
+        // Prefer aggregation-level results from Apply; fall back to the
+        // page-summary cell so existing data still shows up.
+        const key = aggResultKey(ref.fileId, ref.pageNum, prompt.id);
+        const stored = agg.promptResults[key];
+        if (stored && typeof stored.text === 'string') {
+          if (stored.status === 'error') div.classList.add('error');
+          if (stored.status === 'pending') div.classList.add('pending');
+          div.textContent = stored.text;
+        } else {
+          div.textContent = readCellText(
+            sourceTr,
+            `.col-prompt-result[data-prompt-id="${prompt.id}"] .llm-response-content`
+          );
+        }
+        tdPrompt.appendChild(div);
+        tr.appendChild(tdPrompt);
+      }
+
+      aggDetailTbody.appendChild(tr);
+    }
+    updateAggApplyButton();
+    updateAggSavePdfButton();
+  }
+
+  function aggResultKey(fileId, pageNum, promptId) {
+    return fileId + ':' + pageNum + ':' + promptId;
+  }
+
+  function syncAggPageRefsFromDom(agg) {
+    const ordered = Array.from(aggDetailTbody.querySelectorAll('tr')).map(tr => ({
+      fileId: Number(tr.dataset.fileId),
+      pageNum: Number(tr.dataset.pageNum)
+    }));
+    // Only mutate if the order actually changed, to avoid spurious work.
+    const changed = ordered.length !== agg.pageRefs.length ||
+      ordered.some((r, i) =>
+        r.fileId !== agg.pageRefs[i].fileId || r.pageNum !== agg.pageRefs[i].pageNum);
+    if (!changed) return;
+    agg.pageRefs = ordered;
+    aggDetailMeta.textContent = agg.pageRefs.length + ' page'
+      + (agg.pageRefs.length === 1 ? '' : 's');
+    // The aggregation-summary row shows the first page as its thumbnail, so
+    // refresh that table if the first-page slot may have shifted.
+    renderAggSummary();
+    setStatus('Reordered pages in "' + agg.name + '".');
+  }
+
+  function updateAggApplyButton() {
+    if (busy || aggDetailTable.hidden || currentAggregationPrompts.length === 0) {
+      aggApplyBtn.disabled = true;
+      aggApplyBtn.title = busy
+        ? 'Working…'
+        : (aggDetailTable.hidden
+          ? 'Open an aggregation first'
+          : 'No prompts are marked as Aggregation detail heading');
+      return;
+    }
+    const rowsSelected = !!aggDetailTbody.querySelector('.row-select:checked');
+    const colsSelected = !!aggDetailThead.querySelector('.col-select-prompt:checked');
+    aggApplyBtn.disabled = !(rowsSelected && colsSelected);
+    aggApplyBtn.title = rowsSelected && colsSelected
+      ? 'Run selected prompts on selected rows'
+      : 'Select at least one row and one prompt column';
+  }
+
+  function updateAggSavePdfButton() {
+    if (busy || aggDetailTable.hidden) {
+      aggSavePdfBtn.disabled = true;
+      aggSavePdfBtn.title = busy ? 'Working…' : 'Open an aggregation first';
+      return;
+    }
+    const agg = aggregations.find(a => a.id === selectedAggregationId);
+    const n = agg ? agg.pageRefs.length : 0;
+    aggSavePdfBtn.disabled = n === 0;
+    aggSavePdfBtn.title = n === 0
+      ? 'This aggregation has no pages'
+      : 'Save the ' + n + ' page' + (n === 1 ? '' : 's') + ' as a single PDF in current order';
+  }
+
+  function removePageFromAggregation(aggId, ref) {
+    const agg = aggregations.find(a => a.id === aggId);
+    if (!agg) return;
+    agg.pageRefs = agg.pageRefs.filter(
+      r => !(r.fileId === ref.fileId && r.pageNum === ref.pageNum)
+    );
+    renderAggSummary();
+    renderAggDetail();
+  }
 
   // --- Viewer popup ---
   // Strategy: open a single named popup window. Each click postMessages
@@ -1140,9 +2817,27 @@
   .prompt-row.selected { background: #e8f3ff; border-color: #0066cc; }
   .prompt-name { flex: 1; font-size: 14px; min-width: 0;
                  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .prompt-badges { display: flex; gap: 4px; flex-shrink: 0; margin-right: 6px; }
+  .prompt-badge { font-size: 10px; font-weight: 700; padding: 2px 6px;
+                  border-radius: 4px; letter-spacing: 0.4px; }
+  .prompt-badge.manual { background: #e8f3ff; color: #0066cc; }
+  .prompt-badge.col { background: #e6f7ec; color: #128a3d; }
+  .prompt-badge.agg { background: #fff1e6; color: #b35b00; }
   .actions { display: flex; gap: 4px; flex-shrink: 0; }
   .actions button { padding: 4px 10px; font-size: 13px; }
   .empty { color: #6e6e73; font-style: italic; font-size: 13px; margin: 4px 0 0; }
+  select { width: 100%; padding: 8px 10px; border: 1px solid #d2d2d7;
+           border-radius: 6px; font: inherit; outline: none; margin-top: 4px;
+           background: #fff; }
+  select:focus { border-color: #0066cc; }
+  select:disabled { opacity: 0.5; }
+  .model-row { display: flex; gap: 16px; margin-top: 12px; }
+  .model-row > div { flex: 1; }
+  .model-row label { margin-top: 0; }
+  .flag-row { display: flex; gap: 16px; margin-top: 12px; }
+  .flag-row label { display: flex; align-items: center; gap: 6px;
+                    font-size: 13px; color: #1d1d1f; margin: 0; cursor: pointer; }
+  .flag-row input[type="checkbox"] { margin: 0; }
 </style>
 </head>
 <body>
@@ -1162,6 +2857,25 @@
     <input id="editName" type="text">
     <label for="editText">Prompt text</label>
     <textarea id="editText"></textarea>
+    <div class="model-row">
+      <div>
+        <label for="editProvider">Provider</label>
+        <select id="editProvider">
+          <option value="openai">OpenAI</option>
+          <option value="anthropic">Anthropic</option>
+          <option value="gemini">Google (Gemini)</option>
+        </select>
+      </div>
+      <div>
+        <label for="editModel">Model</label>
+        <select id="editModel"></select>
+      </div>
+    </div>
+    <div class="flag-row">
+      <label><input id="editManual" type="checkbox"> Manual (show in detail page)</label>
+      <label><input id="editSummaryColumn" type="checkbox"> Summary table heading</label>
+      <label><input id="editAggregationColumn" type="checkbox"> Aggregation detail heading</label>
+    </div>
     <div class="row"><button id="saveEditBtn">Save Changes</button></div>
   </section>
   <section>
@@ -1170,6 +2884,25 @@
     <input id="addName" type="text" placeholder="e.g. Summarize">
     <label for="addText">Prompt text</label>
     <textarea id="addText" placeholder="Enter the prompt text..."></textarea>
+    <div class="model-row">
+      <div>
+        <label for="addProvider">Provider</label>
+        <select id="addProvider">
+          <option value="openai">OpenAI</option>
+          <option value="anthropic">Anthropic</option>
+          <option value="gemini">Google (Gemini)</option>
+        </select>
+      </div>
+      <div>
+        <label for="addModel">Model</label>
+        <select id="addModel"></select>
+      </div>
+    </div>
+    <div class="flag-row">
+      <label><input id="addManual" type="checkbox" checked> Manual (show in detail page)</label>
+      <label><input id="addSummaryColumn" type="checkbox"> Summary table heading</label>
+      <label><input id="addAggregationColumn" type="checkbox"> Aggregation detail heading</label>
+    </div>
     <div class="row"><button id="addBtn">Add Prompt</button></div>
   </section>
 </main>
@@ -1178,15 +2911,89 @@
   let library = [];
   let selectedId = null;
 
+  const PROVIDER_MODELS = {
+    openai: ['gpt-5.4-nano', 'gpt-5.4-mini'],
+    anthropic: [],
+    gemini: []
+  };
+
+  function normalizeProviderModel(p) {
+    const provider = PROVIDER_MODELS.hasOwnProperty(p && p.provider)
+      ? p.provider : 'openai';
+    const models = PROVIDER_MODELS[provider];
+    let model = '';
+    if (models.length) {
+      model = models.includes(p && p.model) ? p.model : models[0];
+    }
+    return { provider, model };
+  }
+
+  // Repopulate a model <select> from the chosen provider. Providers with no
+  // models show a single disabled "Not available" option and the select is
+  // disabled; the desired model is preselected when it is still valid.
+  function fillModelSelect(modelSel, provider, desired) {
+    const models = PROVIDER_MODELS[provider] || [];
+    modelSel.innerHTML = '';
+    if (!models.length) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'Not available';
+      modelSel.appendChild(opt);
+      modelSel.value = '';
+      modelSel.disabled = true;
+      return;
+    }
+    modelSel.disabled = false;
+    models.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m;
+      opt.textContent = m;
+      modelSel.appendChild(opt);
+    });
+    modelSel.value = models.includes(desired) ? desired : models[0];
+  }
+
   const listEl = document.getElementById('promptList');
   const emptyMsg = document.getElementById('emptyMsg');
   const editSection = document.getElementById('editSection');
   const editName = document.getElementById('editName');
   const editText = document.getElementById('editText');
+  const editManual = document.getElementById('editManual');
+  const editSummaryColumn = document.getElementById('editSummaryColumn');
+  const editAggregationColumn = document.getElementById('editAggregationColumn');
+  const editProvider = document.getElementById('editProvider');
+  const editModel = document.getElementById('editModel');
   const saveEditBtn = document.getElementById('saveEditBtn');
   const addName = document.getElementById('addName');
   const addText = document.getElementById('addText');
+  const addManual = document.getElementById('addManual');
+  const addSummaryColumn = document.getElementById('addSummaryColumn');
+  const addAggregationColumn = document.getElementById('addAggregationColumn');
+  const addProvider = document.getElementById('addProvider');
+  const addModel = document.getElementById('addModel');
   const addBtn = document.getElementById('addBtn');
+
+  editProvider.addEventListener('change', () => {
+    fillModelSelect(editModel, editProvider.value, editModel.value);
+  });
+  addProvider.addEventListener('change', () => {
+    fillModelSelect(addModel, addProvider.value, addModel.value);
+  });
+  fillModelSelect(addModel, addProvider.value, '');
+
+  function normalizePrompt(p) {
+    const pm = normalizeProviderModel(p);
+    return {
+      id: typeof p.id === 'string' && p.id ? p.id : makeId(),
+      name: String(p.name || ''),
+      text: String(p.text || ''),
+      manual: p.manual === undefined ? true : !!p.manual,
+      summaryColumn: !!p.summaryColumn,
+      aggregationColumn: !!p.aggregationColumn,
+      provider: pm.provider,
+      model: pm.model
+    };
+  }
 
   function makeId() {
     if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
@@ -1225,6 +3032,31 @@
       nameSpan.textContent = p.name || '(untitled)';
       nameSpan.addEventListener('click', () => selectPrompt(p.id));
       li.appendChild(nameSpan);
+
+      const badges = document.createElement('span');
+      badges.className = 'prompt-badges';
+      if (p.manual) {
+        const b = document.createElement('span');
+        b.className = 'prompt-badge manual';
+        b.textContent = 'M';
+        b.title = 'Manual \\u2014 shown in detail-page menu';
+        badges.appendChild(b);
+      }
+      if (p.summaryColumn) {
+        const b = document.createElement('span');
+        b.className = 'prompt-badge col';
+        b.textContent = 'T';
+        b.title = 'Table column \\u2014 appears as a summary-table heading';
+        badges.appendChild(b);
+      }
+      if (p.aggregationColumn) {
+        const b = document.createElement('span');
+        b.className = 'prompt-badge agg';
+        b.textContent = 'A';
+        b.title = 'Aggregation column \\u2014 appears as an aggregation-detail heading';
+        badges.appendChild(b);
+      }
+      li.appendChild(badges);
 
       const actions = document.createElement('div');
       actions.className = 'actions';
@@ -1267,6 +3099,12 @@
       editSection.hidden = false;
       editName.value = p.name;
       editText.value = p.text;
+      editManual.checked = !!p.manual;
+      editSummaryColumn.checked = !!p.summaryColumn;
+      editAggregationColumn.checked = !!p.aggregationColumn;
+      const pm = normalizeProviderModel(p);
+      editProvider.value = pm.provider;
+      fillModelSelect(editModel, pm.provider, pm.model);
     } else {
       editSection.hidden = true;
     }
@@ -1302,7 +3140,16 @@
     if (!name) { editName.focus(); return; }
     const idx = library.findIndex(p => p.id === selectedId);
     if (idx < 0) return;
-    library[idx] = { ...library[idx], name: name, text: editText.value };
+    library[idx] = {
+      ...library[idx],
+      name: name,
+      text: editText.value,
+      manual: editManual.checked,
+      summaryColumn: editSummaryColumn.checked,
+      aggregationColumn: editAggregationColumn.checked,
+      provider: editProvider.value,
+      model: editModel.value
+    };
     render();
     postLibrary();
   });
@@ -1310,10 +3157,22 @@
   addBtn.addEventListener('click', () => {
     const name = (addName.value || '').trim();
     if (!name) { addName.focus(); return; }
-    const text = addText.value;
-    library.push({ id: makeId(), name: name, text: text });
+    library.push(normalizePrompt({
+      name: name,
+      text: addText.value,
+      manual: addManual.checked,
+      summaryColumn: addSummaryColumn.checked,
+      aggregationColumn: addAggregationColumn.checked,
+      provider: addProvider.value,
+      model: addModel.value
+    }));
     addName.value = '';
     addText.value = '';
+    addManual.checked = true;
+    addSummaryColumn.checked = false;
+    addAggregationColumn.checked = false;
+    addProvider.value = 'openai';
+    fillModelSelect(addModel, 'openai', '');
     render();
     postLibrary();
   });
@@ -1321,7 +3180,7 @@
   window.addEventListener('message', e => {
     if (!e.data || e.source !== window.opener) return;
     if (e.data.type === 'promptLibrary' && Array.isArray(e.data.promptLibrary)) {
-      library = e.data.promptLibrary.map(p => ({ ...p }));
+      library = e.data.promptLibrary.map(normalizePrompt);
       render();
     }
   });
@@ -1448,14 +3307,15 @@
 
   function renderLibrary() {
     libraryListEl.innerHTML = '';
-    if (!promptLibrary.length) {
+    const manualPrompts = promptLibrary.filter(p => p.manual !== false);
+    if (!manualPrompts.length) {
       const empty = document.createElement('span');
       empty.className = 'lib-empty';
-      empty.textContent = 'No saved prompts. Open the hamburger menu in the main window to add some.';
+      empty.textContent = 'No manual prompts. Mark a prompt as "Manual" in the library editor to make it appear here.';
       libraryListEl.appendChild(empty);
       return;
     }
-    for (const p of promptLibrary) {
+    for (const p of manualPrompts) {
       const item = document.createElement('span');
       item.className = 'lib-item';
       item.textContent = p.name;
